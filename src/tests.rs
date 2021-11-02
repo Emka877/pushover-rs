@@ -8,13 +8,15 @@ fn it_works() {
 
 #[test]
 fn test_message_builder() {
-    let mb1: MessageBuilder = MessageBuilder::new("abcdefgh", "ijklmnop", "Test message");
+    /* Minimal message */
+    let mb1: MessageBuilder = MessageBuilder::new("abc", "def", "test message");
     let m1: Message = mb1.build();
     
-    assert_eq!(m1.app_token, "ijklmnop".to_owned());
-    assert_eq!(m1.user_key, "abcdefgh".to_owned());
-    assert_eq!(m1.message, "Test message".to_owned());
+    assert_eq!(m1.app_token, "def".to_owned());
+    assert_eq!(m1.user_key, "abc".to_owned());
+    assert_eq!(m1.message, "test message".to_owned());
 
+    /* Full message */
     let mfull: Message = MessageBuilder::new("abc", "def", "test")
         .add_title("Title")
         .add_url("https://www.google.be/", Some("Google"))
@@ -33,4 +35,14 @@ fn test_message_builder() {
     assert_eq!(mfull.priority, Some(0));
     assert_eq!(mfull.sound, Some("cashregister".to_owned()));
     assert_eq!(mfull.timestamp, Some(1635861224));
+}
+
+#[tokio::test]
+async fn test_send_request() {
+    // TODO: Send good request test
+}
+
+#[tokio::test]
+async fn test_send_bad_request() {
+    // TODO: Send bad request test
 }
