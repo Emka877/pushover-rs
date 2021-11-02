@@ -28,6 +28,7 @@ pub async fn main() {
         if pushover_response.status == 1 {
             println!("The request was correct.");
         } else {
+            // This should happen as the token / userkey are fake.
             println!("The request was incorrect.");
 
             if pushover_response.errors.is_some() {
