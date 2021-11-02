@@ -31,12 +31,13 @@ pub struct Message {
     /// A Unix timestamp of your message's date and time to display to the user, rather than the time your message is received by our API
     #[serde(skip_serializing_if = "Option::is_none")]
     pub timestamp: Option<u64>, // Year 2038 proof :p
+    /// A list of device names to send the push notifications to, if you want to limit the notification to certain devices.
+    pub devices: Option<Vec<String>>,
 
     /*
     TODO:
     Optional
         - attachment
-        - device
     */
 }
 
@@ -52,6 +53,7 @@ impl Default for Message {
             priority: None,
             sound: None,
             timestamp: None,
+            devices: None,
         }
     }
 }

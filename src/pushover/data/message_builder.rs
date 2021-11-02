@@ -113,6 +113,30 @@ impl MessageBuilder {
         self
     }
 
+    /// Add a device name to send the notification to.
+    pub fn add_device(mut self, device_name: &str) -> MessageBuilder {
+        type Devices = Vec<String>;
+
+        if device_name.trim().len() == 0 {
+            return self;
+        }
+
+        if self.build.devices.is_none() {
+            self.build.devices = Some(vec!());
+        }
+
+        let mut replacement_list: Devices = self.build.devices.clone().unwrap();
+        replacement_list.push(device_name.to_owned());
+        self.build.devices = Some(replacement_list);
+
+        self
+    }
+
+    pub fn clear_devices_list(mut self) -> MessageBuilder {
+        self.build.devices = None;
+        self
+    }
+
     /// Transforms the MessageBuilder into a useable Message
     pub fn build(self) -> Message {
         self.build.clone()
