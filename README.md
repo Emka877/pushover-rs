@@ -7,5 +7,12 @@ It's a Rust client library you can use to interact with the [Pushover](https://w
 
 This client is unofficial and I'm in no way linked to Pushover.
 
+## How to use
+### You need
+* A Pushover account
+* An application you have created through the [dashboard](https://www.pushover.net/)
+* Your user key
+* Your app's token
+
 ## Documentation
 Coming soon
