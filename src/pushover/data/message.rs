@@ -32,6 +32,7 @@ pub struct Message {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub timestamp: Option<u64>, // Year 2038 proof :p
     /// A list of device names to send the push notifications to, if you want to limit the notification to certain devices.
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub devices: Option<Vec<String>>,
 
     /*
