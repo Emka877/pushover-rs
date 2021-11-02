@@ -12,22 +12,10 @@ This client is unofficial and I'm in no way linked to Pushover.
 * Your app's token
 
 ### Usage example
-You need to send a push notification for whatever reason, here are the steps:
-
-1. Create a `Message` using the `MessageBuilder`.
-    * `use pushover-rs::MessageBuilder;`
-2. Send the message using the send_pushover_request function.
-    * `use pushover-rs::send_pushover_request;`
-3. Done
-
-### Example
-```rust
-
-```
+See the [examples folder](../blob/master/examples)
 
 ## Documentation
 Coming soon
 
 ## TODO
-* "device" option
 * "attachment" option
