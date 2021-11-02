@@ -5,6 +5,7 @@ pub struct MessageBuilder {
     build: Message,
 }
 
+#[allow(dead_code)]
 impl MessageBuilder {
     /// Creates a new MessageBuilder instance with the required minimal informations (User key, App token & Message)
     pub fn new(user_key: &str, application_token: &str, message: &str) -> Self {
