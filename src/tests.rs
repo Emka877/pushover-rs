@@ -1,7 +1,7 @@
 use std::{io::BufReader, path::PathBuf};
 
 use crate::pushover::data::*;
-use crate::send_request;
+use crate::send_pushover_request;
 use serde::Deserialize;
 
 /* Test setup */
@@ -69,7 +69,7 @@ async fn test_send_request_minimal_message() {
             credentials.app_token.as_str(),
             "Test from pushover-rs.",
         ).build();
-        let response = send_request(message).await;
+        let response = send_pushover_request(message).await;
         assert_eq!(response.is_ok(), true);
     }
 }
@@ -81,11 +81,11 @@ async fn test_send_bad_request() {
     let message = Message {
         ..Default::default()
     };
-    let response = send_request(message).await;
+    let response = send_pushover_request(message).await;
     
     assert_eq!(response.is_ok(), true); // Bad request doesn't mean the request didn't go through
 
-    if (response.is_ok()) {
+    if response.is_ok() {
         // !Shadowing previous var
         let response: PushoverResponse = response.ok().unwrap();
         assert_eq!(response.status, 0);
