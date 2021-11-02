@@ -48,6 +48,7 @@ fn test_message_builder() {
         .set_priority(100) // "Error": Out of the [-2, 2] boundary -> Should be reset to 0
         .set_sound(PushoverSound::CASHREGISTER)
         .set_timestamp(1635861224)
+        .add_device("home desktop")
         .build();
 
     assert_eq!(mfull.user_key, "abc".to_owned());
@@ -59,6 +60,7 @@ fn test_message_builder() {
     assert_eq!(mfull.priority, Some(0));
     assert_eq!(mfull.sound, Some("cashregister".to_owned()));
     assert_eq!(mfull.timestamp, Some(1635861224));
+    assert_eq!(mfull.devices, Some(vec!["home desktop".to_owned()]));
 }
 
 #[tokio::test]
