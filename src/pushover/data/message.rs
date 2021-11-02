@@ -32,12 +32,12 @@ pub struct Message {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub timestamp: Option<u64>, // Year 2038 proof :p
 
-                            /*
-                            TODO:
-                            Optional
-                                - attachment
-                                - device
-                            */
+    /*
+    TODO:
+    Optional
+        - attachment
+        - device
+    */
 }
 
 impl Default for Message {
