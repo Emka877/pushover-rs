@@ -1,6 +1,11 @@
 use serde::Serialize;
 
 #[derive(Debug, Clone, Serialize)]
+/**
+ * A message to be used in conjuction with the send_pushover_notification function.
+ * 
+ * Note: It is preferred to create a Message through the MessageBuilder.
+ **/
 pub struct Message {
     /* Required */
     /// (Required) Your app API token, see https://pushover.net/apps/[your application ID]
