@@ -1,0 +1,16 @@
+[package]
+name = "pushover-rs"
+version = "0.1.0"
+edition = "2021"
+license = "MIT"
+description = "(WIP, do not use just yet) A Rust client for Pushover (https://www.pushover.net)"
+homepage = "https://github.com/Oscuro87/pushover-rs"
+documentation = ""
+repository = "https://github.com/Oscuro87/pushover-rs"
+readme = "README.md"
+
+[dependencies]
+tokio = { version = "1.13.0", features = ["macros", "rt-multi-thread"] }
+reqwest = { version = "0.11.6", features = [] }
+serde = "1.0.130"
+serde_derive = "1.0.130"
