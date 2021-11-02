@@ -15,7 +15,7 @@ This client is unofficial and I'm in no way linked to Pushover.
 See the [examples folder](../blob/master/examples)
 
 ## Documentation
-Coming soon
+[It's here](https://docs.rs/pushover-rs/0.1.0/pushover_rs/)
 
 ## TODO
 * "attachment" option
