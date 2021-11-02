@@ -2,8 +2,11 @@
 mod tests;
 mod pushover;
 
-use pushover::{constants::PUSHOVER_API_ENDPOINT, data::{Message, PushoverResponse}};
+use pushover::{constants::PUSHOVER_API_ENDPOINT};
 pub use pushover::data::MessageBuilder;
+pub use pushover::data::PushoverSound;
+pub use pushover::data::Message;
+pub use pushover::data::PushoverResponse;
 
 pub async fn send_pushover_request(message: Message) -> Result<PushoverResponse, Box<dyn std::error::Error>> {
     let client = reqwest::Client::new();
