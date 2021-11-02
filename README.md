@@ -12,7 +12,7 @@ This client is unofficial and I'm in no way linked to Pushover.
 * Your app's token
 
 ### Usage example
-See the [examples folder](../blob/master/examples)
+See the [examples folder](/examples)
 
 ## Documentation
 [It's here](https://docs.rs/pushover-rs/0.1.0/pushover_rs/)
