@@ -1,7 +1,7 @@
 [package]
 name = "pushover-rs"
 version = "0.1.0"
-edition = "2021"
+edition = "2018"
 license = "MIT"
 description = "(WIP, do not use just yet) A Rust client for Pushover (https://www.pushover.net)"
 homepage = "https://github.com/Oscuro87/pushover-rs"
