@@ -8,6 +8,7 @@ homepage = "https://github.com/Oscuro87/pushover-rs"
 documentation = ""
 repository = "https://github.com/Oscuro87/pushover-rs"
 readme = "README.md"
+keywords = ["pushover", "push-notifications", "notification", "client"]
 
 [dependencies]
 tokio = { version = "1.13.0", features = ["macros", "rt-multi-thread"] }
