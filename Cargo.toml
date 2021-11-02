@@ -5,10 +5,11 @@ edition = "2018"
 license = "MIT"
 description = "A Rust client for Pushover (https://www.pushover.net)"
 homepage = "https://github.com/Oscuro87/pushover-rs"
-documentation = ""
+documentation = "https://docs.rs/crate/pushover-rs/0.1.0"
 repository = "https://github.com/Oscuro87/pushover-rs"
 readme = "README.md"
 keywords = ["pushover", "push-notifications", "notification", "client"]
+authors = ["Oscuro87"]
 
 [dependencies]
 tokio = { version = "1.13.0", features = ["macros", "rt-multi-thread"] }
