@@ -1,9 +1,33 @@
-use crate::pushover::data::*;
+use std::{io::BufReader, path::PathBuf};
 
+use crate::pushover::data::*;
+use crate::send_request;
+use serde::Deserialize;
+
+/* Test setup */
+
+#[derive(Debug, Clone, Deserialize)]
+struct TestData {
+    #[serde(alias = "token")]
+    app_token: String,
+
+    #[serde(alias = "user")]
+    user_key: String,
+}
+
+fn read_test_data() -> Result<TestData, Box<dyn std::error::Error>> {
+    let file_path: PathBuf = PathBuf::from("./testdata/credentials.json");
+    let file = std::fs::File::open(file_path)?;
+    let reader = BufReader::new(file);
+    let data = serde_json::from_reader(reader)?;
+    Ok(data)
+}
+
+/* Actual tests */
 #[test]
-fn it_works() {
-    let result = 2 + 2;
-    assert_eq!(result, 4);
+fn test_testdata_readability() {
+    let testdata: Result<TestData, Box<dyn std::error::Error>> = read_test_data();
+    assert_eq!(testdata.is_ok(), true);
 }
 
 #[test]
@@ -11,7 +35,7 @@ fn test_message_builder() {
     /* Minimal message */
     let mb1: MessageBuilder = MessageBuilder::new("abc", "def", "test message");
     let m1: Message = mb1.build();
-    
+
     assert_eq!(m1.app_token, "def".to_owned());
     assert_eq!(m1.user_key, "abc".to_owned());
     assert_eq!(m1.message, "test message".to_owned());
@@ -25,7 +49,7 @@ fn test_message_builder() {
         .set_sound(PushoverSound::CASHREGISTER)
         .set_timestamp(1635861224)
         .build();
-        
+
     assert_eq!(mfull.user_key, "abc".to_owned());
     assert_eq!(mfull.app_token, "def".to_owned());
     assert_eq!(mfull.message, "test message".to_owned());
@@ -38,11 +62,32 @@ fn test_message_builder() {
 }
 
 #[tokio::test]
-async fn test_send_request() {
-    // TODO: Send good request test
+async fn test_send_request_minimal_message() {
+    if let Ok(credentials) = read_test_data() {
+        let message: Message = MessageBuilder::new(
+            credentials.user_key.as_str(),
+            credentials.app_token.as_str(),
+            "Test from pushover-rs.",
+        ).build();
+        let response = send_request(message).await;
+        assert_eq!(response.is_ok(), true);
+    }
 }
 
 #[tokio::test]
 async fn test_send_bad_request() {
-    // TODO: Send bad request test
+    // Message should not be used "manually", messagebuilder should be used.
+    // Default message doesn't contain the minimal info for a request.
+    let message = Message {
+        ..Default::default()
+    };
+    let response = send_request(message).await;
+    
+    assert_eq!(response.is_ok(), true); // Bad request doesn't mean the request didn't go through
+
+    if (response.is_ok()) {
+        // !Shadowing previous var
+        let response: PushoverResponse = response.ok().unwrap();
+        assert_eq!(response.status, 0);
+    }
 }
