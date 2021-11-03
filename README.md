@@ -15,7 +15,7 @@ This client is unofficial and I'm in no way linked to Pushover.
 See the [examples folder](/examples)
 
 ## Documentation
-[It's here](https://docs.rs/pushover-rs/0.1.0/pushover_rs/)
+[It's here](https://docs.rs/pushover-rs/latest/)
 
 ## Note
 The API might change or break in the future, but i'll try my best not to break anything.
