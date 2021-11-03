@@ -1,11 +1,11 @@
 [package]
 name = "pushover-rs"
-version = "0.2.2"
+version = "0.2.3"
 edition = "2018"
 license = "MIT"
 description = "A Rust client for Pushover (https://www.pushover.net)"
 homepage = "https://github.com/Oscuro87/pushover-rs"
-documentation = "https://docs.rs/crate/pushover-rs/0.1.0"
+documentation = "https://docs.rs/pushover-rs/latest/"
 repository = "https://github.com/Oscuro87/pushover-rs"
 readme = "README.md"
 keywords = ["pushover", "push-notifications", "notification", "client"]
