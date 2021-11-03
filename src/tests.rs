@@ -1,7 +1,7 @@
 use std::{io::BufReader, path::PathBuf};
 
 use crate::pushover::data::*;
-use crate::send_pushover_request;
+use crate::{send_pushover_request, send_pushover_request_with_attachment};
 use serde::Deserialize;
 
 /* Test setup */
@@ -91,5 +91,24 @@ async fn test_send_bad_request() {
         // !Shadowing previous var
         let response: PushoverResponse = response.ok().unwrap();
         assert_eq!(response.status, 0);
+    }
+}
+
+#[test]
+fn test_send_with_good_attachment() {
+    if let Ok(credentials) = read_test_data() {
+        let attachment_path: String = "./testdata/attachment_test.jpg".to_owned();
+        let message: AttachmentMessage = AttachmentMessageBuilder::new(
+            credentials.user_key.as_str(),
+            credentials.app_token.as_str(),
+            "Test from pushover-rs.",
+        )
+        .set_attachment(attachment_path)
+        .build()
+        .unwrap();
+        
+        let response = send_pushover_request_with_attachment(message);
+        
+        assert_eq!(response.is_ok(), true);
     }
 }
