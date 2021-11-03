@@ -148,6 +148,20 @@ impl AttachmentMessageBuilder {
         if attachment_path.trim().len() == 0 {
             return self;
         }
+
+        // Check if the attachment file path exists
+        if !std::path::Path::new(&attachment_path).exists() {
+            eprintln!("Cannot add attachment: File doesn't exist.");
+            return self;
+        }
+
+        // Check if the attachment file size is less or equal to 2621440 bytes
+        let file_size = std::fs::metadata(&attachment_path).unwrap().len();
+        if file_size > 2621440 {
+            eprintln!("Cannot add attachment: File size is too large.");
+            return self;
+        }
+
         self.build.attachment = attachment_path;
         self
     }
