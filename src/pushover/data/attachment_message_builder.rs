@@ -1,6 +1,8 @@
 use std::io::Error;
 use std::io::ErrorKind;
 
+use crate::pushover::constants;
+
 use super::PushoverSound;
 use super::AttachmentMessage;
 
@@ -149,19 +151,6 @@ impl AttachmentMessageBuilder {
             return self;
         }
 
-        // Check if the attachment file path exists
-        if !std::path::Path::new(&attachment_path).exists() {
-            eprintln!("Cannot add attachment: File doesn't exist.");
-            return self;
-        }
-
-        // Check if the attachment file size is less or equal to 2621440 bytes
-        let file_size = std::fs::metadata(&attachment_path).unwrap().len();
-        if file_size > 2621440 {
-            eprintln!("Cannot add attachment: File size is too large.");
-            return self;
-        }
-
         self.build.attachment = attachment_path;
         self
     }
@@ -182,6 +171,17 @@ impl AttachmentMessageBuilder {
 
         if self.build.attachment.is_empty() {
             return Err(Box::new(Error::new(ErrorKind::InvalidInput, "Attachment is empty")));
+        }
+
+        // Check if the attachment file path exists
+        if !std::path::Path::new(&self.build.attachment).exists() {
+            return Err(Box::new(Error::new(ErrorKind::InvalidInput, "Attachment file doesn't exist.")));
+        }
+
+        // Check if the attachment file size is less or equal to 2621440 bytes
+        let file_size = std::fs::metadata(&self.build.attachment).unwrap().len();
+        if file_size > constants::PUSHOVER_API_ATTACHMENT_MAX_SIZE_BYTES {
+            return Err(Box::new(Error::new(ErrorKind::InvalidInput, "Attachment file is too large. (> 2621440 bytes)")));
         }
 
         Ok(self.build.clone())
