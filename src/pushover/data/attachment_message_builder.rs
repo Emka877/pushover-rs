@@ -6,6 +6,9 @@ use crate::pushover::constants;
 use super::PushoverSound;
 use super::AttachmentMessage;
 
+/**
+Helps build a correct Pushover request, with attachment.
+ */
 pub struct AttachmentMessageBuilder {
     build: AttachmentMessage,
 }

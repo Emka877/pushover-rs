@@ -1,5 +1,8 @@
 #[allow(dead_code)]
 
+/**
+ An enum of all the officially available notification sounds in Pushover. 
+ **/
 pub enum PushoverSound {
     PUSHOVER,
     BIKE,

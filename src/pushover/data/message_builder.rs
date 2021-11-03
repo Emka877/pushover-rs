@@ -1,5 +1,9 @@
 use super::{Message, PushoverSound};
 
+
+/**
+Helps build a correct Pushover request.
+ */
 #[derive(Debug)]
 pub struct MessageBuilder {
     build: Message,

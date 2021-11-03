@@ -1,5 +1,8 @@
 use serde::Deserialize;
 
+/**
+ Data of the response given by the Pushover API. (if any) 
+ **/
 #[derive(Debug, Clone, Deserialize)]
 pub struct PushoverResponse {
     /* Always present in response */

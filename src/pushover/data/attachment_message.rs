@@ -1,6 +1,11 @@
 use reqwest::blocking::multipart::Form;
 
 #[derive(Debug, Clone)]
+/**
+ A message containing an attachment, to be used in conjuction with the send_pushover_request_with_attachment function.
+
+ Note: It is preferred to create a Message through the AttachmentMessageBuilder.
+ **/
 pub struct AttachmentMessage {
     /* Required */
     /// (Required) Your app API token, see https://pushover.net/apps/[your application ID]
