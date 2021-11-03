@@ -19,6 +19,3 @@ See the [examples folder](/examples)
 
 ## Note
 The API might change or break in the future, but i'll try my best not to break anything.
-
-## TODO
-* "attachment" option
