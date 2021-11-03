@@ -4,10 +4,20 @@ It's a Rust client library you can use to interact with the [Pushover](https://w
 
 This client is unofficial and I'm in no way linked to Pushover.
 
+## Where to get it
+Get it directly from [crates.io](https://crates.io/crates/pushover-rs)
+
+Cargo.toml:
+```Cargo.toml
+[dependencies]
+pushover-rs = "*"
+...
+```
+
 ## How to use
 ### You need
-* A Pushover account
-* An application you have created through the [dashboard](https://www.pushover.net/)
+* A Pushover account ([Create one](https://pushover.net/signup))
+* An application you have created through the [dashboard](https://www.pushover.net/) ([Create one now](https://pushover.net/apps/build))
 * Your user key
 * Your app's token
 
