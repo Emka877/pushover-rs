@@ -112,3 +112,35 @@ fn test_send_with_good_attachment() {
         assert_eq!(response.is_ok(), true);
     }
 }
+
+#[test]
+fn test_send_attachment_doesnt_exist() {
+    if let Ok(credentials) = read_test_data() {
+        let attachment_path: String = "./testdata/attachment_test_doesnt_exist.jpg".to_owned();
+        let message = AttachmentMessageBuilder::new(
+            credentials.user_key.as_str(),
+            credentials.app_token.as_str(),
+            "Test from pushover-rs.",
+        )
+        .set_attachment(attachment_path)
+        .build();
+        
+        assert_eq!(message.is_err(), true);
+    }
+}
+
+#[test]
+fn test_send_attachment_too_large() {
+    if let Ok(credentials) = read_test_data() {
+        let attachment_path: String = "./testdata/attachment_test_too_large.jpg".to_owned();
+        let message = AttachmentMessageBuilder::new(
+            credentials.user_key.as_str(),
+            credentials.app_token.as_str(),
+            "Test from pushover-rs.",
+        )
+        .set_attachment(attachment_path)
+        .build();
+        
+        assert_eq!(message.is_err(), true);
+    }
+}
