@@ -1,7 +1,5 @@
 use std::vec;
 
-use serde::de::IntoDeserializer;
-
 use crate::{AttachmentMessageBuilder, Message, MessageBuilder, PushoverSound};
 
 #[test]
