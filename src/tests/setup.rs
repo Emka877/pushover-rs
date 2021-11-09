@@ -11,7 +11,7 @@ pub struct TestData {
 }
 
 pub fn read_test_data() -> Result<TestData, Box<dyn std::error::Error>> {
-    let file_path: PathBuf = PathBuf::from("/testdata/credentials.json");
+    let file_path: PathBuf = PathBuf::from("testdata/credentials.json");
     let file = std::fs::File::open(file_path)?;
     let reader = BufReader::new(file);
     let data = serde_json::from_reader(reader)?;
