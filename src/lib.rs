@@ -17,6 +17,7 @@ pub async fn send_pushover_request(message: Message) -> Result<PushoverResponse,
         .json(&message)
         .send()
         .await?;
+    
     return PushoverResponse::try_from_reqwest_response(response).await;
 }
 
@@ -24,7 +25,6 @@ pub async fn send_pushover_request(message: Message) -> Result<PushoverResponse,
 pub fn send_pushover_request_with_attachment(message: AttachmentMessage) -> Result<PushoverResponse, Box<dyn std::error::Error>> {
     let client = reqwest::blocking::Client::new();
     let form = message.into_form()?;
-
     let response = client
         .post(PUSHOVER_API_ENDPOINT)
         .multipart(form)
