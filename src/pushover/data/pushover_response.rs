@@ -26,9 +26,9 @@ impl PushoverResponse {
 
         if data.is_err() {
             return Err(Box::from(data.err().unwrap()))
-        } else {
-            return Ok(data.ok().unwrap());
         }
+
+        return Ok(data.ok().unwrap());
     }
 
     pub fn try_from_blocking_reqwest_response(response: reqwest::blocking::Response) -> Result<PushoverResponse, Box<dyn std::error::Error>> {
@@ -36,8 +36,8 @@ impl PushoverResponse {
 
         if data.is_err() {
             return Err(Box::from(data.err().unwrap()))
-        } else {
-            return Ok(data.ok().unwrap());
         }
+
+        return Ok(data.ok().unwrap());
     }
 }
