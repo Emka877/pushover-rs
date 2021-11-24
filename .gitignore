@@ -2,3 +2,4 @@
 Cargo.lock
 /testdata
 /.idea
+/examples/data/**/*
