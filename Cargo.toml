@@ -28,5 +28,5 @@ name = "usage-example"
 path = "examples/usage.rs"
 
 [[example]]
-name = "usage-with-attachemnt"
+name = "usage-with-attachment"
 path = "examples/usage_with_attachment.rs"
