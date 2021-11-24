@@ -3,31 +3,12 @@
 
     Try this example by running: `cargo run --example usage-example`
 **/
-extern crate pushover_rs;
-use std::fs::File;
-
+// extern crate pushover_rs;
 use pushover_rs::{Message, MessageBuilder, PushoverResponse, PushoverSound, send_pushover_request};
-use serde::Deserialize;
-use serde_json::from_reader;
 use std::time::{SystemTime, UNIX_EPOCH};
 
-#[derive(Debug, Deserialize)]
-struct ExampleCredentials {
-    user: String,
-    token: String,
-}
-
-fn read_credentials() -> ExampleCredentials {
-    let path: String = "./data/credentials.ron".into();
-    let file: File = File::open(&path).expect(&format!("Cannot find file at location: {}", path));
-    match from_reader(file) {
-        Ok(creds) => creds,
-        Err(err) => {
-            eprintln!("Error reading credentials file: {}", err);
-            std::process::exit(1);
-        },
-    }
-}
+mod common;
+use common::*;
 
 async fn something_happened_send_notification() -> Result<PushoverResponse, Box<dyn std::error::Error>> {
     // Reads the credentials from a file, feel free to use anything else to store your own credentials.
@@ -55,9 +36,10 @@ pub async fn main() {
     // 2) Request error: When your request doesn't contain all the required info, namely, "user key", "app token" and "message"
     // This is why error checking looks so extensive
     
+    println!("The request was sent, let's check if it was correct...");
+    
     // HTTP protocol error level
     if response.is_ok() {
-        eprintln!("The request was sent, let's check if it was correct...");
         let pushover_response: PushoverResponse = response.ok().unwrap();
 
         if pushover_response.status != 1 {
@@ -74,6 +56,8 @@ pub async fn main() {
             } else {
                 eprintln!("The request was incorrect.", )
             }
+        } else {
+            println!("Ok, your push notification should arrive soon.");
         }
     }
 }
