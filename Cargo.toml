@@ -18,6 +18,7 @@ serde = { version = "1.0.130", features = ["derive"] }
 
 [dev-dependencies]
 serde_json = "1.0.71"
+ron = "0.7.0"
 
 [features]
 default = []
@@ -25,3 +26,7 @@ default = []
 [[example]]
 name = "usage-example"
 path = "examples/usage.rs"
+
+[[example]]
+name = "usage-with-attachemnt"
+path = "examples/usage_with_attachment.rs"
