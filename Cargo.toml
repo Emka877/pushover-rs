@@ -1,6 +1,6 @@
 [package]
 name = "pushover-rs"
-version = "0.2.5"
+version = "0.2.6"
 edition = "2018"
 license = "MIT"
 description = "A Rust client for Pushover (https://www.pushover.net)"
