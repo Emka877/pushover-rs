@@ -4,6 +4,8 @@ It's a Rust client library you can use to interact with the [Pushover](https://w
 
 This client is unofficial and I'm in no way linked to Pushover.
 
+## State: Working & Maintained
+
 ## Where to get it
 Get it directly from [crates.io](https://crates.io/crates/pushover-rs)
 
