@@ -2,4 +2,4 @@
 Cargo.lock
 /testdata
 /.idea
-/examples/data/credentials.ron
+/examples/data/**/*
