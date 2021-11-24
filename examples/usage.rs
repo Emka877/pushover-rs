@@ -3,7 +3,8 @@
 
     Try this example by running: `cargo run --example usage-example`
 **/
-// extern crate pushover_rs;
+
+extern crate pushover_rs;
 use pushover_rs::{Message, MessageBuilder, PushoverResponse, PushoverSound, send_pushover_request};
 use std::time::{SystemTime, UNIX_EPOCH};
 
@@ -28,7 +29,7 @@ async fn something_happened_send_notification() -> Result<PushoverResponse, Box<
 
 #[tokio::main]
 pub async fn main() {
-    let response = something_happened_send_notification().await;
+    let response: Result<PushoverResponse, Box<dyn std::error::Error>> = something_happened_send_notification().await;
 
     // Handle errors or not, it's up to you
     // If you decide to handle them, know that there are 2 possible levels of errors:
