@@ -12,7 +12,7 @@ keywords = ["pushover", "push-notifications", "notification", "client"]
 authors = ["Oscuro87"]
 
 [dependencies]
-tokio = { version = "1.16.1", features = ["macros", "rt-multi-thread"] }
+tokio = { version = "1.17.0", features = ["macros", "rt-multi-thread"] }
 reqwest = { version = "0.11.9", features = ["json", "blocking", "multipart"] }
 serde = { version = "1.0.136", features = ["derive"] }
 
