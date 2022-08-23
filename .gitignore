@@ -3,3 +3,5 @@ Cargo.lock
 /testdata
 /.idea
 /examples/data/**/*
+!/examples/data/credentials_example.ron
+!/examples/data/credentials_example.json

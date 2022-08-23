@@ -29,5 +29,23 @@ See the [examples folder](/examples)
 ## Documentation
 [It's here](https://docs.rs/pushover-rs/latest/)
 
+## Run the tests
+To run the tests, you'll need:
+- Create a /testdata folder, in there:
+    - Put a picture called `attachment_test.jpg`
+    - Create a credentials.json with this inside:
+```json
+{
+    "token": "your token",
+    "user": "your user key"
+}
+```
+- To recap:
+```
+/testdata
+    /testdata/attachment_test.jpg
+    /testdata/credentials.json
+```
+
 ## Note
 The API might change or break in the future, but i'll try my best not to break anything.
