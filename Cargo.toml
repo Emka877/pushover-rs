@@ -1,6 +1,6 @@
 [package]
 name = "pushover-rs"
-version = "0.3.6"
+version = "0.3.7"
 edition = "2021"
 license = "MIT"
 description = "A Rust client for Pushover (https://www.pushover.net)"
@@ -12,7 +12,7 @@ keywords = ["pushover", "push-notifications", "notification", "client"]
 authors = ["Oscuro87"]
 
 [dependencies]
-tokio = { version = "1.23.0", features = ["macros", "rt-multi-thread"] }
+tokio = { version = "1.24.1", features = ["macros", "rt-multi-thread"] }
 reqwest = { version = "0.11.13", features = ["json", "blocking", "multipart"] }
 serde = { version = "1.0.152", features = ["derive"] }
 
