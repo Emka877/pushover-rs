@@ -1,6 +1,6 @@
 [package]
 name = "pushover-rs"
-version = "0.3.12"
+version = "0.3.13"
 edition = "2021"
 license = "MIT"
 description = "A Rust client for Pushover (https://www.pushover.net)"
@@ -10,13 +10,11 @@ repository = "https://github.com/Oscuro87/pushover-rs"
 readme = "README.md"
 keywords = [
     "pushover",
-    "push notifications",
-    "desktop notification",
-    "mobile notification",
     "notification",
     "client",
     "mobile",
     "desktop",
+    "push"
 ]
 authors = ["Oscuro87"]
 
