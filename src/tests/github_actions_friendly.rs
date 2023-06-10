@@ -14,8 +14,8 @@ pub fn test_message_builder() {
 
     /* Full message */
     let mfull: Message = MessageBuilder::new("abc", "def", "test")
-        .add_title("Title")
-        .add_url("https://www.google.be/", Some("Google"))
+        .set_title("Title")
+        .set_url("https://www.google.be/", Some("Google"))
         .modify_message("test message")
         .set_priority(100) // "Error": Out of the [-2, 2] boundary -> Should be reset to 0
         .set_sound(PushoverSound::CASHREGISTER)

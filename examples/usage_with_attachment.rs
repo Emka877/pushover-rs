@@ -18,7 +18,7 @@ pub fn send_pushover_message_with_attachment() -> Result<PushoverResponse, Box<d
     let duration_since_epoch: Duration = SystemTime::now().duration_since(UNIX_EPOCH).unwrap();
     let now: u64 = duration_since_epoch.as_secs();
     let message = AttachmentMessageBuilder::new(&credentials.user, &credentials.token, "Some message")
-        .add_title("Example with attachment")
+        .set_title("Example with attachment")
         .set_attachment("examples/data/attachment.jpg".into())
         .set_sound(PushoverSound::TUGBOAT)
         .set_timestamp(now)

@@ -17,8 +17,8 @@ async fn something_happened_send_notification() -> Result<PushoverResponse, Box<
     let duration_since_epoch = SystemTime::now().duration_since(UNIX_EPOCH).unwrap();
     let now: u64 = duration_since_epoch.as_secs();
     let message: Message = MessageBuilder::new(&credentials.user, &credentials.token, "Example message")
-        .add_title("Example push notification sent through Pushover API")
-        .add_url("https://pushover.net/", Some("Pushover"))
+        .set_title("Example push notification sent through Pushover API")
+        .set_url("https://pushover.net/", Some("Pushover"))
         .set_priority(1)
         .set_sound(PushoverSound::ALIEN)
         .set_timestamp(now)

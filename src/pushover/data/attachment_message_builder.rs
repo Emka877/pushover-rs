@@ -39,7 +39,18 @@ impl AttachmentMessageBuilder {
         self
     }
 
+    /// Sets a title to your message
+    pub fn set_title(mut self, title: &str) -> AttachmentMessageBuilder {
+        if title.trim().len() == 0 {
+            self.build.title = None;
+        }
+
+        self.build.title = Some(title.to_owned());
+        self
+    }
+
     /// Adds a title to your message
+    #[deprecated(since="0.3.12", note="Please use set_title instead.")]
     pub fn add_title(mut self, title: &str) -> AttachmentMessageBuilder {
         if title.trim().len() == 0 {
             self.build.title = None;
@@ -55,9 +66,29 @@ impl AttachmentMessageBuilder {
         self
     }
 
+    /// Sets an url (and optionally, an url title) to send along with your message.
+    ///
+    /// If set, the URL title will be shown, otherwise the URL will be shown.
+    pub fn set_url(mut self, url: &str, url_title: Option<&str>) -> AttachmentMessageBuilder {
+        if url.trim().len() == 0 {
+            self.build.url = None;
+            self.build.url_title = None;
+            return self;
+        }
+
+        self.build.url = Some(url.to_owned());
+
+        if url_title.is_some() {
+            self.build.url_title = Some(url_title.unwrap().to_owned());
+        }
+
+        self
+    }
+
     /// Adds an url (and optionally, an url title) to send along with your message.
     /// 
     /// If set, the URL title will be shown, otherwise the URL will be shown.
+    #[deprecated(since="0.3.12", note="Please use set_url instead.")]
     pub fn add_url(mut self, url: &str, url_title: Option<&str>) -> AttachmentMessageBuilder {
         if url.trim().len() == 0 {
             self.build.url = None;
@@ -66,9 +97,11 @@ impl AttachmentMessageBuilder {
         }
 
         self.build.url = Some(url.to_owned());
+
         if url_title.is_some() {
             self.build.url_title = Some(url_title.unwrap().to_owned());
         }
+
         self
     }
 
