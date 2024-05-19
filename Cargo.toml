@@ -15,7 +15,7 @@ keywords = [
     "desktop",
     "push"
 ]
-authors = ["Oscuro87"]
+authors = ["Emka877"]
 
 [dependencies]
 tokio = { version = "1.37.0", features = ["macros", "rt-multi-thread"] }
