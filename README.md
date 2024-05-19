@@ -49,3 +49,7 @@ To run the tests, you'll need:
 
 ## Note
 The API might change or break in the future, but i'll try my best not to break anything.
+
+## Changelog
+### 0.3.18
+- Support the TTL option

@@ -201,6 +201,17 @@ impl AttachmentMessageBuilder {
         self
     }
 
+    /// Set the TTL (Time to Live), in seconds
+    pub fn set_ttl(mut self, ttl_secs: u32) -> AttachmentMessageBuilder {
+        if ttl_secs <= 0 {
+            self.build.ttl = None;
+        }
+        else {
+            self.build.ttl = Some(ttl_secs);
+        }
+        self
+    }
+
     /// Add attachment to the message.
     /// 
     /// Attachments cannot be larger than 2.5MB.

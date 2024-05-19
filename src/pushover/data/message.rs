@@ -2,9 +2,9 @@ use serde::Serialize;
 
 #[derive(Debug, Clone, Serialize)]
 /**
- A message to be used in conjuction with the send_pushover_request function.
+A message to be used in conjuction with the send_pushover_request function.
 
- Note: It is preferred to create a Message through the MessageBuilder.
+Note: It is preferred to create a Message through the MessageBuilder.
  **/
 pub struct Message {
     /* Required */
@@ -39,6 +39,10 @@ pub struct Message {
     /// A list of device names to send the push notifications to, if you want to limit the notification to certain devices.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub devices: Option<Vec<String>>,
+    /// A TTL (Time to Live) in seconds, after which the message will be automatically deleted from the recipient's inbox.
+    /// Setting *ttl* to None or 0 prevents this auto removal.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub ttl: Option<u32>,
 }
 
 impl Default for Message {
@@ -54,6 +58,7 @@ impl Default for Message {
             sound: None,
             timestamp: None,
             devices: None,
+            ttl: None,
         }
     }
 }

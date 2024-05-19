@@ -27,6 +27,24 @@ async fn test_send_request_minimal_message() {
 }
 
 #[tokio::test]
+async fn test_send_request_min_message_with_ttl() {
+    if let Ok(credentials) = read_test_data() {
+        let ttl: u32 = 5;
+        let message: Message = MessageBuilder::new(
+            credentials.user_key.as_str(),
+            credentials.app_token.as_str(),
+            format!("Test from pushover-rs with {ttl} seconds TTL").as_str(),
+        )
+        .set_ttl(ttl)
+        .build();
+        let response = send_pushover_request(message).await;
+        assert_eq!(response.is_ok(), true);
+    } else {
+        panic!("Could not read test data.");
+    }
+}
+
+#[tokio::test]
 async fn test_send_bad_request() {
     // Message should not be used "manually", messagebuilder should be used.
     // Default message doesn't contain the minimal info for a request.
@@ -51,9 +69,10 @@ fn test_send_with_good_attachment() {
         let message: AttachmentMessage = AttachmentMessageBuilder::new(
             credentials.user_key.as_str(),
             credentials.app_token.as_str(),
-            "Test from pushover-rs.",
+            "Test from pushover-rs, with attachment and ttl",
         )
         .set_attachment(attachment_path)
+        .set_ttl(10)
         .build()
         .unwrap();
 

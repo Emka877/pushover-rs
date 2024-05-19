@@ -194,6 +194,17 @@ impl MessageBuilder {
         self
     }
 
+    /// Set the TTL (Time to Live), in seconds
+    pub fn set_ttl(mut self, ttl_secs: u32) -> MessageBuilder {
+        if ttl_secs <= 0 {
+            self.build.ttl = None;
+        }
+        else {
+            self.build.ttl = Some(ttl_secs);
+        }
+        self
+    }
+
     /// Transforms the MessageBuilder into a useable Message
     pub fn build(self) -> Message {
         self.build.clone()

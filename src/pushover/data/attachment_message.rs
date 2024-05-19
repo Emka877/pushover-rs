@@ -32,6 +32,9 @@ pub struct AttachmentMessage {
     pub timestamp: Option<String>, // Year 2038 proof :p
     /// A list of device names to send the push notifications to, if you want to limit the notification to certain devices.
     pub devices: Option<Vec<String>>,
+    /// A TTL (Time to Live) in seconds, after which the message will be automatically deleted from the recipient's inbox.
+    /// Setting *ttl* to None or 0 prevents this auto removal.
+    pub ttl: Option<u32>,
 }
 
 impl AttachmentMessage {
@@ -47,6 +50,7 @@ impl AttachmentMessage {
             .text("sound", self.sound.clone().unwrap_or("".into()))
             .text("timestamp", self.timestamp.unwrap_or("".into()))
             .text("device", self.devices.clone().unwrap_or(vec!()).join(","))
+            .text("ttl", self.ttl.unwrap_or(0).to_string())
             .file("attachment", self.attachment.clone())
     }
 }
@@ -65,6 +69,7 @@ impl Default for AttachmentMessage {
             sound: None,
             timestamp: None,
             devices: None,
+            ttl: None,
         }
     }
 }
