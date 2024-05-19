@@ -20,7 +20,7 @@ async fn something_happened_send_notification() -> Result<PushoverResponse, Box<
         .set_title("Example push notification sent through Pushover API")
         .set_url("https://pushover.net/", Some("Pushover"))
         .set_priority(1)
-        .set_ttl(60) // 60 seconds. Note that setting a TTL will overwrite set_priority to value 2! See: https://pushover.net/api#ttl
+        .set_ttl(60) // 60 seconds. Note that TTLs will be ignored if the priority is set to 2. See: https://pushover.net/api#ttl
         .set_sound(PushoverSound::ALIEN)
         .set_timestamp(now)
         .build();
