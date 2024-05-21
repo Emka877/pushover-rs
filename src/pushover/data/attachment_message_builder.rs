@@ -1,5 +1,6 @@
 use std::io::Error;
 use std::io::ErrorKind;
+use crate::MessageBuilder;
 
 use crate::pushover::constants;
 
@@ -156,48 +157,16 @@ impl AttachmentMessageBuilder {
     }
 
     /// Add a device name to send the notification to.
-    /// 
-    /// Ignores if the device name is already in the list.
-    pub fn add_device(mut self, device_name: &str) -> AttachmentMessageBuilder {
-        type Devices = Vec<String>;
-
-        if device_name.trim().len() == 0 {
-            return self;
-        }
-
-        if self.build.devices.is_none() {
-            self.build.devices = Some(vec!());
-        } else {
-            let clone: Vec<String> = self.build.devices.clone().unwrap();
-            if clone.contains(&device_name.into()) {
-                return self;
-            }
-        }
-
-        let mut replacement_list: Devices = self.build.devices.clone().unwrap();
-        replacement_list.push(device_name.to_owned());
-        self.build.devices = Some(replacement_list);
-
+    ///
+    /// Overrides the current device if a new device name is set.
+    pub fn set_device(mut self, device_name: &str) -> AttachmentMessageBuilder {
+        self.build.device = Some(device_name.to_string());
         self
     }
 
-    /// Overrides the current devices list with device_names
-    pub fn set_devices(mut self, device_names: Vec<&str>) -> AttachmentMessageBuilder {
-        let device_names = device_names.iter().map(|x| x.to_string()).collect::<Vec<String>>();
-        self.build.devices = Some(device_names);
-        self
-    }
-
-    /// Merges the current devices list with device_names, duplicates are eliminated
-    pub fn merge_devices(mut self, device_names: Vec<&str>) -> AttachmentMessageBuilder {
-        for name in device_names {
-            self = self.add_device(name);
-        }
-        self
-    }
-
-    pub fn clear_devices_list(mut self) -> AttachmentMessageBuilder {
-        self.build.devices = None;
+    /// Clears the device if set.
+    pub fn remove_device(mut self) -> AttachmentMessageBuilder {
+        self.build.device = None;
         self
     }
 
