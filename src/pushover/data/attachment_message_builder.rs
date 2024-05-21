@@ -1,6 +1,5 @@
 use std::io::Error;
 use std::io::ErrorKind;
-use crate::MessageBuilder;
 
 use crate::pushover::constants;
 
