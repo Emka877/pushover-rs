@@ -30,8 +30,8 @@ pub struct AttachmentMessage {
     pub sound: Option<String>,
     /// A Unix timestamp of your message's date and time to display to the user, rather than the time your message is received by our API
     pub timestamp: Option<String>, // Year 2038 proof :p
-    /// A list of device names to send the push notifications to, if you want to limit the notification to certain devices.
-    pub devices: Option<Vec<String>>,
+    /// A device name to send the push notifications to, if you want to limit the notification to a certain device.
+    pub device: Option<String>,
     /// A TTL (Time to Live) in seconds, after which the message will be automatically deleted from the recipient's inbox.
     /// Setting *ttl* to None or 0 prevents this auto removal.
     pub ttl: Option<u32>,
@@ -49,7 +49,7 @@ impl AttachmentMessage {
             .text("priority", self.priority.unwrap_or("".into()))
             .text("sound", self.sound.clone().unwrap_or("".into()))
             .text("timestamp", self.timestamp.unwrap_or("".into()))
-            .text("device", self.devices.clone().unwrap_or(vec!()).join(","))
+            .text("device", self.device.unwrap_or("".into()))
             .text("ttl", self.ttl.unwrap_or(0).to_string())
             .file("attachment", self.attachment.clone())
     }
@@ -68,7 +68,7 @@ impl Default for AttachmentMessage {
             priority: None,
             sound: None,
             timestamp: None,
-            devices: None,
+            device: None,
             ttl: None,
         }
     }
