@@ -40,7 +40,7 @@ pub struct Message {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub device: Option<String>,
     /// A TTL (Time to Live) in seconds, after which the message will be automatically deleted from the recipient's inbox.
-    /// Setting *ttl* to None or 0 prevents this auto removal.
+    /// Setting *ttl* to None prevents this auto removal. Setting TTL to 0 will raise an error (ttl must be > 0).
     #[serde(skip_serializing_if = "Option::is_none")]
     pub ttl: Option<u32>,
 }
@@ -50,7 +50,7 @@ impl Default for Message {
         Self {
             app_token: "".into(),
             user_key: "".into(),
-            message: "".into(),
+            message: "No message set.".into(),
             title: None,
             url: None,
             url_title: None,
