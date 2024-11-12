@@ -2,7 +2,7 @@ use serde::Serialize;
 
 #[derive(Debug, Clone, Serialize)]
 /**
-A message to be used in conjuction with the send_pushover_request function.
+A message to be used in conjunction with the send_pushover_request function.
 
 Note: It is preferred to create a Message through the MessageBuilder.
  **/
@@ -36,9 +36,9 @@ pub struct Message {
     /// A Unix timestamp of your message's date and time to display to the user, rather than the time your message is received by our API
     #[serde(skip_serializing_if = "Option::is_none")]
     pub timestamp: Option<u64>, // Year 2038 proof :p
-    /// A list of device names to send the push notifications to, if you want to limit the notification to certain devices.
+    /// A device name to send the push notifications to, if you want to limit the notification to a certain device.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub devices: Option<Vec<String>>,
+    pub device: Option<String>,
     /// A TTL (Time to Live) in seconds, after which the message will be automatically deleted from the recipient's inbox.
     /// Setting *ttl* to None prevents this auto removal. Setting TTL to 0 will raise an error (ttl must be > 0).
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -57,7 +57,7 @@ impl Default for Message {
             priority: None,
             sound: None,
             timestamp: None,
-            devices: None,
+            device: None,
             ttl: None,
         }
     }

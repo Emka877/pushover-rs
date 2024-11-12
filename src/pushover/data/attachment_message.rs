@@ -42,6 +42,7 @@ pub struct AttachmentMessage {
     pub devices: Option<Vec<String>>,
     /// A TTL (Time to Live) in seconds, after which the message will be automatically deleted from the recipient's inbox.
     /// Setting *ttl* to None prevents this auto removal. Setting TTL to 0 will raise an error (ttl must be > 0).
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub ttl: Option<u32>,
 }
 
