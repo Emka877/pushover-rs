@@ -11,6 +11,26 @@ pub fn test_testdata_readability() {
 }
 
 #[tokio::test]
+async fn test_send_minimal_message_specific_device() {
+    // Device name is set on the Pushover dashboard.
+    // You can join multiple singular devices by separating them with a comma (eg: "MyPhone,MyOtherPhone")
+    let device_name: &str = "MyPhone";
+    if let Ok(credentials) = read_test_data() {
+        let message: Message = MessageBuilder::new(
+            credentials.user_key.as_str(),
+            credentials.app_token.as_str(),
+            "Test from pushover-rs.",
+        )
+            .set_device(device_name)
+            .build();
+        let response = send_pushover_request(message).await;
+        assert_eq!(response.is_ok(), true);
+    } else {
+        panic!("Could not read test data.");
+    }
+}
+
+#[tokio::test]
 async fn test_send_request_minimal_message() {
     if let Ok(credentials) = read_test_data() {
         let message: Message = MessageBuilder::new(
