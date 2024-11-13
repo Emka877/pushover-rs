@@ -1,5 +1,6 @@
 use std::io::Error;
 use std::io::ErrorKind;
+
 use crate::pushover::constants;
 
 use super::PushoverSound;
@@ -154,30 +155,17 @@ impl AttachmentMessageBuilder {
         self
     }
 
-    /// Adds a device name to the list of devices.
+    /// Add a device name to send the notification to.
     ///
-    /// Devices are device names to send the notification to.
-    pub fn add_device(mut self, device_id: &str) -> AttachmentMessageBuilder {
-        match &mut self.build.devices {
-            Some(vec) => { vec.push(device_id.into()) },
-            None => { self.build.devices = Some(vec![device_id.into()]) }
-        }
-        self
-    }
-
-    /// Overrides the currently set devices list with the value of `device_name`.
-    ///
-    /// Devices are device names to send the notification to.
+    /// Overrides the current device if a new device name is set.
     pub fn set_device(mut self, device_name: &str) -> AttachmentMessageBuilder {
-        let mut devices = Vec::<String>::new();
-        devices.push(device_name.to_owned());
-        self.build.devices = Some(devices);
+        self.build.device = Some(device_name.to_string());
         self
     }
 
-    /// Clears the list of devices.
+    /// Clears the device if set.
     pub fn remove_device(mut self) -> AttachmentMessageBuilder {
-        self.build.devices = None;
+        self.build.device = None;
         self
     }
 
