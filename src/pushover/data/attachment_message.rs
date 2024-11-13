@@ -37,9 +37,9 @@ pub struct AttachmentMessage {
     /// A Unix timestamp of your message's date and time to display to the user, rather than the time your message is received by our API
     #[serde(skip_serializing_if = "Option::is_none")]
     pub timestamp: Option<String>, // Year 2038 proof :p
-    /// A list of device names to send the push notifications to, if you want to limit the notification to certain devices.
+    /// A device name to send the push notifications to.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub devices: Option<Vec<String>>,
+    pub device: Option<String>,
     /// A TTL (Time to Live) in seconds, after which the message will be automatically deleted from the recipient's inbox.
     /// Setting *ttl* to None prevents this auto removal. Setting TTL to 0 will raise an error (ttl must be > 0).
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -52,13 +52,13 @@ impl AttachmentMessage {
             .text("token", self.app_token.clone())
             .text("user", self.user_key.clone())
             .text("message", self.message.clone())
-            .text("title", self.title.clone().unwrap_or("".into()))
-            .text("url", self.url.clone().unwrap_or("".into()))
-            .text("url_title", self.url_title.clone().unwrap_or("".into()))
-            .text("priority", self.priority.unwrap_or("".into()))
-            .text("sound", self.sound.clone().unwrap_or("".into()))
-            .text("timestamp", self.timestamp.unwrap_or("".into()))
-            .text("device", self.devices.clone().unwrap_or(vec!()).join(","));
+            .text("title", self.title.clone().unwrap_or(String::from("")))
+            .text("url", self.url.clone().unwrap_or(String::from("")))
+            .text("url_title", self.url_title.clone().unwrap_or(String::from("")))
+            .text("priority", self.priority.unwrap_or(String::from("")))
+            .text("sound", self.sound.clone().unwrap_or(String::from("")))
+            .text("timestamp", self.timestamp.unwrap_or(String::from("")))
+            .text("device", self.device.clone().unwrap_or(String::from("")));
         // TTL became required if it has a value, 0 doesn't work anymore.
         if self.ttl.is_some() {
             form = form.text("ttl", self.ttl.unwrap_or(999).to_string());
@@ -80,7 +80,7 @@ impl Default for AttachmentMessage {
             priority: None,
             sound: None,
             timestamp: None,
-            devices: None,
+            device: None,
             ttl: None,
         }
     }
