@@ -47,9 +47,15 @@ To run the tests, you'll need:
     /testdata/credentials.json
 ```
 
+## Something missing, have a request or something is broken?
+Please create an issue [here](https://github.com/Emka877/pushover-rs/issues/new) I'll treat it as soon as possible!
+
 ## Note
 The API might change or break in the future, but i'll try my best not to break anything.
 
 ## Changelog
+### 0.3.19 through latest available version
+Maintenance updates; upgrade of dependencies.
+
 ### 0.3.18
 - Support the TTL option
