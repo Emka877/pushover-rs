@@ -55,8 +55,27 @@ async fn test_send_request_min_message_with_ttl() {
             credentials.app_token.as_str(),
             format!("Test from pushover-rs with {ttl} seconds TTL").as_str(),
         )
-        .set_ttl(ttl)
-        .build();
+            .set_ttl(ttl)
+            .build();
+        let response = send_pushover_request(message).await;
+        assert_eq!(response.is_ok(), true);
+    } else {
+        panic!("Could not read test data.");
+    }
+}
+
+#[tokio::test]
+async fn test_send_request_emergency_priority() {
+    if let Ok(credentials) = read_test_data() {
+        let message: Message = MessageBuilder::new(
+            credentials.user_key.as_str(),
+            credentials.app_token.as_str(),
+            "Server down wake up!!!",
+        )
+            .set_priority(2)
+            .set_retry(30)
+            .set_expire(60)
+            .build();
         let response = send_pushover_request(message).await;
         assert_eq!(response.is_ok(), true);
     } else {
@@ -95,6 +114,29 @@ fn test_send_with_good_attachment() {
         .set_ttl(10)
         .build()
         .unwrap();
+
+        let response = send_pushover_request_with_attachment(message);
+
+        assert_eq!(response.is_ok(), true);
+    } else {
+        panic!("Could not read test data.");
+    }
+}
+#[test]
+fn test_send_with_good_attachment_and_emergency_priority() {
+    if let Ok(credentials) = read_test_data() {
+        let attachment_path: String = "./testdata/attachment_test.jpg".to_owned();
+        let message: AttachmentMessage = AttachmentMessageBuilder::new(
+            credentials.user_key.as_str(),
+            credentials.app_token.as_str(),
+            "Test from pushover-rs, with attachment and ttl",
+        )
+            .set_attachment(attachment_path)
+            .set_priority(2)
+            .set_retry(30)
+            .set_expire(120)
+            .build()
+            .unwrap();
 
         let response = send_pushover_request_with_attachment(message);
 
