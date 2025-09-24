@@ -56,6 +56,9 @@ The API might change or break in the future, but i'll try my best not to break a
 ## Changelog
 ### 0.3.23
 - Fixed a bug that prevented sending out emergency priority messages (missing retry and expire options).
+  - Now setting priority to value 2 (emergency) requires setting the newly available set_retry and set_expire options.
+  - If not provided, default values will be used (retry: 30, expire: 10800).
+- Added support for sending messages with attachments asynchronously. (new exposed method `send_with_attachment_async`)
 - Upgraded dependencies.
 
 ### 0.3.19 through latest available version
