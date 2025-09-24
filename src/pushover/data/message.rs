@@ -30,6 +30,12 @@ pub struct Message {
     /// Send as -2 to generate no notification/alert, -1 to always send as a quiet notification, 1 to display as high-priority and bypass the user's quiet hours, or 2 to also require confirmation from the user
     #[serde(skip_serializing_if = "Option::is_none")]
     pub priority: Option<i8>,
+    /// When the priority is set to 2, sets the amount of seconds between each retries. Must be at least 30 seconds.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub retry: Option<i32>, // Required if priority is set to 2
+    /// When the priority is set to 2, sets the amount of seconds before the notification is expired. The maximum value is 10800 (3 hours).be between 60 and 10800.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub expire: Option<i32>, // Required if priority is set to 2
     /// The name of one of the sounds supported by device clients to override the user's default sound choice. (See sound list: https://pushover.net/api#sounds)
     #[serde(skip_serializing_if = "Option::is_none")]
     pub sound: Option<String>,
@@ -55,6 +61,8 @@ impl Default for Message {
             url: None,
             url_title: None,
             priority: None,
+            retry: None,
+            expire: None,
             sound: None,
             timestamp: None,
             device: None,

@@ -1,6 +1,5 @@
 use std::io::Error;
 use std::io::ErrorKind;
-
 use crate::pushover::constants;
 
 use super::PushoverSound;
@@ -126,6 +125,44 @@ impl AttachmentMessageBuilder {
     /// Resets the priority to default (0, normal)
     pub fn remove_priority(mut self) -> AttachmentMessageBuilder {
         self.build.priority = Some("0".into());
+        self.build.retry = None;
+        self.build.expire = None;
+        self
+    }
+
+    /// When the priority is set to 2, sets the amount of seconds between each retries. Must be at least 30 seconds.
+    pub fn set_retry(mut self, retry_secs: i32) -> AttachmentMessageBuilder {
+        if self.build.priority != Some("2".into()) {
+            // Retry only makes sense if priority is 2
+            return self;
+        }
+
+        if retry_secs < 30 {
+            self.build.retry = Some("30".into());
+            return self;
+        }
+
+        self.build.retry = Some(retry_secs.to_string());
+        self
+    }
+
+    /// When the priority is set to 2, sets the amount of seconds before the notification is expired. The maximum value is 10800 (3 hours). Must be between 60 and 10800.
+    pub fn set_expire(mut self, expire_secs: i32) -> AttachmentMessageBuilder {
+        if self.build.priority != Some("2".into()) {
+            // Expire only makes sense if priority is 2
+            return self;
+        }
+
+        if expire_secs < 60 {
+            self.build.expire = Some("60".into());
+            return self;
+        }
+        else if expire_secs > 10800 {
+            self.build.expire = Some("10800".into());
+            return self;
+        }
+
+        self.build.expire = Some(expire_secs.to_string());
         self
     }
 
@@ -195,7 +232,16 @@ impl AttachmentMessageBuilder {
     }
 
     /// Transforms the MessageBuilder into a useable Message
-    pub fn build(self) -> Result<AttachmentMessage, Box<dyn std::error::Error>> {
+    pub fn build(mut self) -> Result<AttachmentMessage, Box<dyn std::error::Error>> {
+        if self.build.priority == Some("2".into()) {
+            if self.build.retry.is_none() {
+                self.build.retry = Some("30".into());
+            }
+            if self.build.expire.is_none() {
+                self.build.expire = Some("10800".into());
+            }
+        }
+
         if self.build.app_token.is_empty() {
             return Err(Box::new(Error::new(ErrorKind::InvalidInput, "Application token is empty")));
         }

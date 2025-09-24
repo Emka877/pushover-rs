@@ -118,6 +118,44 @@ impl MessageBuilder {
     /// Resets the priority to default (0, normal)
     pub fn remove_priority(mut self) -> MessageBuilder {
         self.build.priority = Some(0);
+        self.build.retry = None;
+        self.build.expire = None;
+        self
+    }
+
+    /// When the priority is set to 2, sets the amount of seconds between each retries. Must be at least 30 seconds.
+    pub fn set_retry(mut self, retry_secs: i32) -> MessageBuilder {
+        if self.build.priority != Some(2) {
+            // Retry only makes sense if priority is 2
+            return self;
+        }
+
+        if retry_secs < 30 {
+            self.build.retry = Some(30);
+            return self;
+        }
+
+        self.build.retry = Some(retry_secs);
+        self
+    }
+
+    /// When the priority is set to 2, sets the amount of seconds before the notification is expired. The maximum value is 10800 (3 hours). Must be between 60 and 10800.
+    pub fn set_expire(mut self, expire_secs: i32) -> MessageBuilder {
+        if self.build.priority != Some(2) {
+            // Expire only makes sense if priority is 2
+            return self;
+        }
+
+        if expire_secs < 60 {
+            self.build.expire = Some(60);
+            return self;
+        }
+        else if expire_secs > 10800 {
+            self.build.expire = Some(10800);
+            return self;
+        }
+
+        self.build.expire = Some(expire_secs);
         self
     }
 
@@ -172,8 +210,16 @@ impl MessageBuilder {
         self
     }
 
-    /// Transforms the MessageBuilder into a useable Message
-    pub fn build(self) -> Message {
-        self.build.clone()
+    /// Transforms the MessageBuilder into a usable Message
+    pub fn build(mut self) -> Message {
+        if self.build.priority == Some(2) {
+            if self.build.retry.is_none() {
+                self.build.retry = Some(30);
+            }
+            if self.build.expire.is_none() {
+                self.build.expire = Some(10800);
+            }
+        }
+        self.build
     }
 }
