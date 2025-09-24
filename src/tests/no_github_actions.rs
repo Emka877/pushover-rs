@@ -1,5 +1,5 @@
 use crate::tests::setup::{TestData, read_test_data};
-use crate::{send_pushover_request, send_pushover_request_with_attachment};
+use crate::{send_pushover_request, send_pushover_request_with_attachment, send_pushover_request_with_attachment_async};
 use crate::{
     pushover::data::{Message, MessageBuilder, AttachmentMessage, AttachmentMessageBuilder, PushoverResponse}
 };
@@ -97,6 +97,28 @@ fn test_send_with_good_attachment() {
         .unwrap();
 
         let response = send_pushover_request_with_attachment(message);
+
+        assert_eq!(response.is_ok(), true);
+    } else {
+        panic!("Could not read test data.");
+    }
+}
+
+#[tokio::test]
+async fn test_send_with_good_attachment_async() {
+    if let Ok(credentials) = read_test_data() {
+        let attachment_path: String = "./testdata/attachment_test.jpg".to_owned();
+        let message: AttachmentMessage = AttachmentMessageBuilder::new(
+            credentials.user_key.as_str(),
+            credentials.app_token.as_str(),
+            "<b>Test from pushover-rs</b>, with <font color='#FF0000'>attachment</font>, <font color='#00FF00'>ttl</font> and <font color='#0000FF'>async</font>",
+        )
+            .set_attachment(attachment_path)
+            .set_ttl(60)
+            .build()
+            .unwrap();
+
+        let response = send_pushover_request_with_attachment_async(message).await;
 
         assert_eq!(response.is_ok(), true);
     } else {

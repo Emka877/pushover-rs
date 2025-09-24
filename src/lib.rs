@@ -9,7 +9,7 @@ pub use pushover::data::Message;
 pub use pushover::data::AttachmentMessage;
 pub use pushover::data::PushoverResponse;
 
-/// Send a push notification without attachment (non blocking)
+/// Send a push notification without attachment (non-blocking)
 pub async fn send_pushover_request(message: Message) -> Result<PushoverResponse, Box<dyn std::error::Error>> {
     let client: reqwest::Client = reqwest::Client::new();
     let response: reqwest::Response = client
@@ -17,8 +17,7 @@ pub async fn send_pushover_request(message: Message) -> Result<PushoverResponse,
         .json(&message)
         .send()
         .await?;
-    
-    return PushoverResponse::try_from_reqwest_response(response).await;
+    PushoverResponse::try_from_reqwest_response(response).await
 }
 
 /// Send a push notification with attachment (! blocking)
@@ -29,6 +28,17 @@ pub fn send_pushover_request_with_attachment(message: AttachmentMessage) -> Resu
         .post(PUSHOVER_API_ENDPOINT)
         .multipart(form)
         .send();
-    
-    return PushoverResponse::try_from_blocking_reqwest_response(response.unwrap());
+    PushoverResponse::try_from_blocking_reqwest_response(response?)
+}
+
+/// Send a push notification with attachment asynchronously (non-blocking)
+pub async fn send_pushover_request_with_attachment_async(message: AttachmentMessage) -> Result<PushoverResponse, Box<dyn std::error::Error>> {
+    let client: reqwest::Client = reqwest::Client::new();
+    let form: reqwest::multipart::Form = message.into_form_async().await?;
+    let response: Result<reqwest::Response, reqwest::Error> = client
+        .post(PUSHOVER_API_ENDPOINT)
+        .multipart(form)
+        .send()
+        .await;
+    PushoverResponse::try_from_reqwest_response(response?).await
 }

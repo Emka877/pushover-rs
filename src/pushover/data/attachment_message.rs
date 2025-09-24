@@ -1,5 +1,6 @@
-use reqwest::blocking::multipart::Form;
+use reqwest::multipart::{Form, Part};
 use serde::Serialize;
+use std::io;
 
 #[derive(Debug, Clone, Serialize)]
 /**
@@ -47,8 +48,8 @@ pub struct AttachmentMessage {
 }
 
 impl AttachmentMessage {
-    pub fn into_form(self) -> Result<Form, std::io::Error> {
-        let mut form = Form::new()
+    pub fn into_form(self) -> Result<reqwest::blocking::multipart::Form, std::io::Error> {
+        let mut form: reqwest::blocking::multipart::Form = reqwest::blocking::multipart::Form::new()
             .text("token", self.app_token.clone())
             .text("user", self.user_key.clone())
             .text("message", self.message.clone())
@@ -63,7 +64,30 @@ impl AttachmentMessage {
         if self.ttl.is_some() {
             form = form.text("ttl", self.ttl.unwrap_or(999).to_string());
         }
-        form.file("attachment", self.attachment.clone())
+        let attachment_part = reqwest::blocking::multipart::Part::bytes(std::fs::read(&self.attachment)?)
+            .file_name(self.attachment.clone());
+        Ok(form.part("attachment", attachment_part))
+    }
+
+    pub async fn into_form_async(self) -> Result<Form, io::Error> {
+        let mut form = Form::new()
+            .text("token", self.app_token.clone())
+            .text("user", self.user_key.clone())
+            .text("message", self.message.clone())
+            .text("title", self.title.clone().unwrap_or(String::from("")))
+            .text("url", self.url.clone().unwrap_or(String::from("")))
+            .text("url_title", self.url_title.clone().unwrap_or(String::from("")))
+            .text("priority", self.priority.unwrap_or(String::from("")))
+            .text("sound", self.sound.clone().unwrap_or(String::from("")))
+            .text("timestamp", self.timestamp.unwrap_or(String::from("")))
+            .text("device", self.device.clone().unwrap_or(String::from("")));
+        if self.ttl.is_some() {
+            form = form.text("ttl", self.ttl.unwrap_or(999).to_string());
+        }
+        let file_bytes = tokio::fs::read(&self.attachment).await?;
+        let part = Part::bytes(file_bytes)
+            .file_name(self.attachment.clone());
+        Ok(form.part("attachment", part))
     }
 }
 

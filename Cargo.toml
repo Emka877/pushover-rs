@@ -18,7 +18,7 @@ keywords = [
 authors = ["Emka877"]
 
 [dependencies]
-tokio = { version = "1.47.1", features = ["macros", "rt-multi-thread"] }
+tokio = { version = "1.47.1", features = ["macros", "rt-multi-thread", "fs"] }
 reqwest = { version = "0.12.23", features = ["json", "blocking", "multipart"], default-features = false }
 serde = { version = "1.0.219", features = ["derive"] }
 
