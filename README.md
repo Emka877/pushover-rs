@@ -54,6 +54,10 @@ Please create an issue [here](https://github.com/Emka877/pushover-rs/issues/new)
 The API might change or break in the future, but i'll try my best not to break anything.
 
 ## Changelog
+### 0.3.23
+- Fixed a bug that prevented sending out emergency priority messages (missing retry and expire options).
+- Upgraded dependencies.
+
 ### 0.3.19 through latest available version
 Maintenance updates; upgrade of dependencies.
 
