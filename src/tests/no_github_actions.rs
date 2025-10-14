@@ -24,7 +24,7 @@ async fn test_send_minimal_message_specific_device() {
             .set_device(device_name)
             .build();
         let response = send_pushover_request(message).await;
-        assert_eq!(response.is_ok(), true);
+        assert!(response.is_ok());
     } else {
         panic!("Could not read test data.");
     }
@@ -40,7 +40,7 @@ async fn test_send_request_minimal_message() {
         )
         .build();
         let response = send_pushover_request(message).await;
-        assert_eq!(response.is_ok(), true);
+        assert!(response.is_ok());
     } else {
         panic!("Could not read test data.");
     }
@@ -58,7 +58,7 @@ async fn test_send_request_min_message_with_ttl() {
             .set_ttl(ttl)
             .build();
         let response = send_pushover_request(message).await;
-        assert_eq!(response.is_ok(), true);
+        assert!(response.is_ok());
     } else {
         panic!("Could not read test data.");
     }
@@ -77,7 +77,7 @@ async fn test_send_request_emergency_priority() {
             .set_expire(60)
             .build();
         let response = send_pushover_request(message).await;
-        assert_eq!(response.is_ok(), true);
+        assert!(response.is_ok());
     } else {
         panic!("Could not read test data.");
     }
@@ -92,7 +92,7 @@ async fn test_send_bad_request() {
     };
     let response = send_pushover_request(message).await;
 
-    assert_eq!(response.is_ok(), true); // Bad request doesn't mean the request didn't go through
+    assert!(response.is_ok()); // Bad request doesn't mean the request didn't go through
 
     if response.is_ok() {
         // !Shadowing previous var
@@ -117,7 +117,7 @@ fn test_send_with_good_attachment() {
 
         let response = send_pushover_request_with_attachment(message);
 
-        assert_eq!(response.is_ok(), true);
+        assert!(response.is_ok());
     } else {
         panic!("Could not read test data.");
     }
@@ -140,7 +140,7 @@ fn test_send_with_good_attachment_and_emergency_priority() {
 
         let response = send_pushover_request_with_attachment(message);
 
-        assert_eq!(response.is_ok(), true);
+        assert!(response.is_ok());
     } else {
         panic!("Could not read test data.");
     }
@@ -162,7 +162,7 @@ async fn test_send_with_good_attachment_async() {
 
         let response = send_pushover_request_with_attachment_async(message).await;
 
-        assert_eq!(response.is_ok(), true);
+        assert!(response.is_ok());
     } else {
         panic!("Could not read test data.");
     }

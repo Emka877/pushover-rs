@@ -61,7 +61,7 @@ The API might change or break in the future, but i'll try my best not to break a
 - Added support for sending messages with attachments asynchronously. (new exposed method `send_with_attachment_async`)
 - Upgraded dependencies.
 
-### 0.3.19 through latest available version
+### 0.3.19 -> 0.3.22
 Maintenance updates; upgrade of dependencies.
 
 ### 0.3.18

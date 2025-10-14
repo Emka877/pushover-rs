@@ -4,7 +4,7 @@ use std::io;
 
 #[derive(Debug, Clone, Serialize)]
 /**
- A message containing an attachment, to be used in conjuction with the send_pushover_request_with_attachment function.
+ A message containing an attachment, to be used in conjunction with the send_pushover_request_with_attachment function.
 
  Note: It is preferred to create a Message through the AttachmentMessageBuilder.
  **/

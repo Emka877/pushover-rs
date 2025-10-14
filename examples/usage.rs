@@ -14,7 +14,7 @@ use common::*;
 async fn something_happened_send_notification() -> Result<PushoverResponse, Box<dyn std::error::Error>> {
     // Reads the credentials from a file, feel free to use anything else to store your own credentials.
     let credentials: ExampleCredentials = read_credentials();
-    let duration_since_epoch = SystemTime::now().duration_since(UNIX_EPOCH).unwrap();
+    let duration_since_epoch = SystemTime::now().duration_since(UNIX_EPOCH)?;
     let now: u64 = duration_since_epoch.as_secs();
     let message: Message = MessageBuilder::new(&credentials.user, &credentials.token, "Example message")
         .set_title("Example push notification sent through Pushover API")
